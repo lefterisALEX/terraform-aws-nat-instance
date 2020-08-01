@@ -1,13 +1,13 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "eu-central-1"
 }
 
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name                 = "example"
+  name                 = "square"
   cidr                 = "172.18.0.0/16"
-  azs                  = ["us-west-2a", "us-west-2b", "us-west-2c"]
+  azs                  = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
   private_subnets      = ["172.18.64.0/20", "172.18.80.0/20", "172.18.96.0/20"]
   public_subnets       = ["172.18.128.0/20", "172.18.144.0/20", "172.18.160.0/20"]
   enable_dns_hostnames = true
@@ -16,7 +16,7 @@ module "vpc" {
 module "nat" {
   source = "../"
 
-  name                        = "example"
+  name                        = "square"
   vpc_id                      = module.vpc.vpc_id
   public_subnet               = module.vpc.public_subnets[0]
   private_subnets_cidr_blocks = module.vpc.private_subnets_cidr_blocks
